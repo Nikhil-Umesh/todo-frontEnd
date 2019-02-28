@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
 import { TodoDataService } from './../service/data/todo-data.service';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 export class Todo {
@@ -7,7 +7,8 @@ export class Todo {
     public id: number,
     public description: string,
     public done: boolean,
-    public targetDate: Date) {
+    public targetDate: Date
+  ){
 
   }
 }
@@ -20,30 +21,33 @@ export class Todo {
 export class ListTodosComponent implements OnInit {
 
   todos: Todo[]
+
   message: string
+
   // = [
-  //   new Todo(1,'Learn to dance',false, new Date()),
-  //   new Todo(2,'Become an expert at angulare',false, new Date()),
-  //   new Todo(3,'Become an expert at SpringBoot',false, new Date()),
-  //   // { id: 1, description: 'Learn to dance' },
-  //   // { id: 2, description: 'Become an expert at angular' },
-  //   // { id: 3, description: 'Become an expert at SpringBoot' }
+  //   new Todo(1, 'Learn to Dance', false, new Date()),
+  //   new Todo(2, 'Become an Expert at Angular', false, new Date()),
+  //   new Todo(3, 'Visit India', false, new Date())
+  //   // {id : 1, description : },
+  //   // {id : 2, description : ''},
+  //   // {id : 3, description : 'Visit India'}
   // ]
+
   // todo = {
-  //   id: 1,
-  //   description: 'Learn to dance'
+  //     id : 1,
+  //     description: 'Learn to Dance'
   // }
 
   constructor(
-    private todoService: TodoDataService,
-    private router: Router
+    private todoService:TodoDataService,
+    private router : Router
   ) { }
 
   ngOnInit() {
-this.refreshTodos();
+    this.refreshTodos();
   }
 
-  refreshTodos() {
+  refreshTodos(){
     this.todoService.retrieveAllTodos('in28minutes').subscribe(
       response => {
         console.log(response);
@@ -53,20 +57,22 @@ this.refreshTodos();
   }
 
   deleteTodo(id) {
-    console.log(`delte todo ${id}`)
-    this.todoService.deleteTodo('in28minurtes', id).subscribe(
+    console.log(`delete todo ${id}` )
+    this.todoService.deleteTodo('in28minutes', id).subscribe (
       response => {
         console.log(response);
-        this.message = `Delete of Todo ${id} successful`;
+        this.message = `Delete of Todo ${id} Successful!`;
         this.refreshTodos();
       }
     )
   }
+
   updateTodo(id) {
-    console.log (`Update ${id}`)
+    console.log(`update ${id}`)
     this.router.navigate(['todos',id])
   }
-  addTodo(){
+
+  addTodo() {
     this.router.navigate(['todos',-1])
   }
 }
